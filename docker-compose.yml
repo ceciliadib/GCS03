@@ -1,0 +1,17 @@
+version: '3'                     # Versão mais atual
+services:                        # Descrição dos containers
+  web:                           # Container web
+    build:                       # Imagem pelo Dockerfile local
+      context: .
+      dockerfile: Dockerfile
+    ports:                       # Encaminhamento de portas
+    - "8001:8000"
+    volumes:                     # Sincronização de pastas
+    - ./:/app
+    command: ./boot.sh
+    depends_on:                  # Ordem de geração
+    - db
+    links:
+    - db  
+  db:                            # Container db
+    image: "postgres:lates"      # Imagem
